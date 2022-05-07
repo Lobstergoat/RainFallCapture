@@ -1,0 +1,63 @@
+namespace RainFallCapture
+{
+    class RainFallCapture
+    {
+        static void Main(string[] args)
+        {
+            int[] heights = new int[12] {6,5,4,3,2,1,1,2,3,4,5,6};
+            int totalWater = 0;
+            int highestWall = heights.Max();
+
+            for (int i = 0; i < highestWall; i++)
+            {
+                for (int f = 0; f < heights.Length; f++)
+                {
+                    Console.Write($"{heights[f]}, ");
+                }
+                Console.WriteLine("\n");
+
+                totalWater += CheckWater(heights);
+                for (int j = 0; j < heights.Length; j++)
+                {
+                    if (heights[j] > 0)
+                    {
+                        heights[j] -= 1;
+                    }
+                }
+
+            }
+            Console.WriteLine($"{totalWater}");
+        }
+        static int CheckWater(int[] heights)
+        {
+            int j = 1;
+            int water = 0;
+            int possibleWater = 0;
+            for (int i = 0; i < heights.Length; i++)
+            {
+                if (heights[i] > 0)
+                {
+                    try
+                    {
+                        while (heights[i + j] == 0)
+                        {
+                            j += 1;
+                            possibleWater += 1;
+                            if(heights[i+j] > 0)
+                            {
+                                water += possibleWater;
+                            }
+                            // add so it doesnt count ending '0's
+                        }
+                    }  
+                    catch
+                    {
+                        Console.WriteLine(water);
+                        return (water);
+                    }
+                }
+            }
+            return (water);
+        }
+    }
+}
